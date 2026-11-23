@@ -40,6 +40,10 @@ Plain HTML needs only an action and named fields:
 - React and other frameworks: use the `fetch` call above in a submit handler; no package is needed.
 - File inputs need `enctype="multipart/form-data"` and a paid plan.
 
+## Booking (appointments)
+
+For online booking, build the date and time picker in the page and send the chosen time as `_slot` (`YYYY-MM-DDTHH:MM`, local 24-hour time), plus optional `_with` (a stylist, room or person). FormTango reserves the first request for a slot and answers `409` with `fields._slot` for any later one, so show that message and let the visitor choose again. Fetch taken times from `GET https://formtango.com/f/FORM_ID/slots?from=YYYY-MM-DD&days=31` and hide them. Each booking is emailed to the owner once the form is claimed. Do not write a booking server, a database or an email integration for this. Details: https://formtango.com/ai.md#booking-requests-appointments
+
 ## Check it works
 
 Send one test submission. A field `_test=1` marks it as a test: stored for 24 hours, not counted, nobody emailed.
